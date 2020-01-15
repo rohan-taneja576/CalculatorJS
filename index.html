@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<title>calculator</title>
+<style>
+    .main {
+        width: 30%;
+        left: 50%;
+        top: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        border: 1px solid;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: auto auto auto;
+        padding: 10px;
+    }
+
+    .grid-item {
+        background-color: black;
+        padding: 20px;
+        font-size: 30px;
+        text-align: center;
+        border-radius: 20px;
+        color: white;
+        cursor: pointer;
+    }
+
+#result {
+    width: 100%;
+    background: red;
+    padding: 15px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    font-size: 50px;
+    overflow: hidden;
+}
+.operators{
+    width: 75%;
+    margin-top: 1%;
+    display: inline-block;
+}
+.operands{
+    width: 25%;
+    float: right;
+    margin-top: 3%;
+    display: grid;
+    text-align: center;
+}
+.opernds{
+    background: black;
+    color: white;
+    padding: 18px 0px;
+    width: 75%;
+    margin: 0 auto;
+    border-radius: 15px;
+    font-size: 30px;
+    cursor: pointer;
+}
+.opernds.nextoperand{
+    margin-top: 12%;
+}
+#clear,#equal{
+    background: red;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 60px;
+    color: white;
+    cursor: pointer;
+}
+#equal{
+    background: black;
+}
+</style>
+
+<body>
+    <div class="main">
+        <div id="result"></div>
+        <div class="operators">
+            <div class="grid-container">
+                <div class="grid-item">0</div>
+                <div class="grid-item">1</div>
+                <div class="grid-item">2</div>
+               
+                <div class="grid-item">3</div>
+                <div class="grid-item">4</div>
+                <div class="grid-item">5</div>
+                
+                <div class="grid-item">6</div>
+                <div class="grid-item">7</div>
+                <div class="grid-item">8</div>
+                
+                <div class="grid-item">9</div>
+                <div id="clear">C</div>
+                <div id="equal">=</div>
+                
+            </div>
+            
+        </div>
+        <div class="operands">
+            <div class="opernds" id="plus">+</div>
+            <div class="opernds nextoperand" id="minus">-</div>
+            <div class="opernds nextoperand" id="multiply">*</div>
+            <div class="opernds nextoperand" id="divide">%</div>
+        </div>
+
+
+    </div>
+
+    <script>
+        
+       var gridvalue = document.querySelectorAll('.grid-item');
+       var opernds = document.querySelectorAll('.opernds');
+
+        var firstelm = document.createElement('div');
+        firstelm.setAttribute('id',"firstelm");
+        result.appendChild(firstelm);
+        var firstelementvalue = document.getElementById('firstelm');
+
+        var firstVal = 0;
+        var secondval = 0, operval ;
+        var equlsto , count = 0;
+
+     function addvalue(){    
+        firstelementvalue.innerText = parseInt(firstVal) +  parseInt(secondval);
+     }
+     function minusvalue(){    
+        firstelementvalue.innerText = parseInt(secondval) -  parseInt(firstVal);
+     }
+     function multiplyvalue(){    
+        firstelementvalue.innerText = parseInt(firstVal) *  parseInt(secondval);
+     }
+     function dividevalue(){    
+        firstelementvalue.innerText = parseInt(secondval) /  parseInt(firstVal);
+     }
+    
+    
+     for (var i = 0; i < gridvalue.length; i++) {  
+             
+              console.log(gridvalue[i]);
+              gridvalue[i].addEventListener('click',function(event){
+                gridclick();    
+                firstVal =  firstVal + event.target.innerText 
+                firstelementvalue.innerText = firstelementvalue.innerText + event.target.innerText;
+
+                clear.addEventListener('click',function(){
+                    firstelementvalue.innerText = "";       
+                    firstVal = 0;
+                    secondval =0;    
+                });                    
+                          
+        });
+    }
+
+    function gridclick(){
+        if(count == 1){
+            firstelementvalue.innerText = "";       
+            firstVal = 0;
+            secondval =0; 
+            count = 0;         
+        }
+    }     
+    equal.addEventListener('click',function(){
+        count = 1;
+        console.log(count);
+        if(operval === "+"){
+            addvalue();
+        }
+        else if(operval === "-"){
+            minusvalue();
+        }
+        else if(operval === "*"){
+            multiplyvalue();
+        }
+        else if(operval === "%"){
+            dividevalue();
+        }
+    })
+
+for (var i = 0; i < opernds.length; i++) {  
+
+    opernds[i].addEventListener('click',function(event){
+
+        secondval =  firstVal;
+        firstVal = 0;
+        operval =  event.target.innerText;
+        console.log(operval);
+     
+        if(operval === "+"){
+            firstelementvalue.innerText = firstelementvalue.innerText + operval;
+        }
+        else if(operval === "-"){
+            firstelementvalue.innerText = firstelementvalue.innerText + operval;
+        }
+        else if(operval === "*"){
+            firstelementvalue.innerText = firstelementvalue.innerText + operval;
+        }
+        else if(operval === "%"){
+            firstelementvalue.innerText = firstelementvalue.innerText + operval;
+        }
+    });
+}
+
+
+</script>
+
+</body>
+
+</html>
